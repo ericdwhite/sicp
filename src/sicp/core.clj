@@ -42,4 +42,11 @@
 (defn sum-cubes [a b]
   (sum cube a inc b))
 
+; Alternate function definition
+(defn sum-pi [a b]
+  (def pi-term (fn [x]
+                 (/ 1.0 (* x (+ x 2)))))
+  (def pi-step (fn [x]
+                 (+ x 4)))
+  (sum pi-term a pi-step b))
 

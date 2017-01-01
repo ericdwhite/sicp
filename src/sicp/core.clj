@@ -7,9 +7,6 @@
 (defn square [x]
   (* x x))
 
-(defn sqrt [x]
-  (sqrt-iter 1 x))
-
 (defn average [a b]
   (/ (+ a b) 2))
 
@@ -23,6 +20,9 @@
       guess
       (recur (improve guess x)
              x))))
+
+(defn sqrt [x]
+  (sqrt-iter 1 x))
 
 ;
 ; 1.3.1 Higher Order Procedures

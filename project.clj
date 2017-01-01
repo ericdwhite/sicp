@@ -6,4 +6,7 @@
   :dependencies [
                  [org.clojure/clojure "1.8.0"]
                  [org.clojure/math.numeric-tower "0.0.4"] 
-                 ])
+                 ]
+  :repl-options {
+                 :init (use 'sicp.core 'sicp.core-test)
+                 })

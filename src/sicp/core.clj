@@ -50,3 +50,25 @@
                  (+ x 4)))
   (sum pi-term a pi-step b))
 
+;
+; 1.3.4 Procedures Returned as Values
+;
+(defn average-damp [f]
+  (fn [x] (average x (f x))))
+
+(defn fixed-point [f first-guess]
+  (letfn [(close-enough? [a b]
+            (< (math/abs (- a b)) 0.00001))
+          (try-guess [guess]
+            (let [step (f guess)]
+              (if (close-enough? guess step)
+                step
+                (try-guess step))))]
+    (try-guess first-guess)))
+
+(defn sqrt2 [x]
+  (fixed-point (average-damp (fn [y] (/ x y))) 1.0))
+
+;
+; Scratch
+;

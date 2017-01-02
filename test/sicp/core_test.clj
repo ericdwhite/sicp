@@ -17,3 +17,7 @@
   (testing "Higher Order Procedures"
     (is (= 6 (sum-integers 1 3)))
     (is (= 36 (sum-cubes 1 3)))))
+
+(deftest test-1-3-4
+  (testing "Procedures Returned as Values"
+    (is (= 2.000000000000002 (sqrt2 4.0)))))

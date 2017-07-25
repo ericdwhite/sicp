@@ -70,5 +70,77 @@
   (fixed-point (average-damp (fn [y] (/ x y))) 1.0))
 
 ;
+; 2.1.1 Arithmetic Operations on Rational Numbers
+;
+(defn make-rat [n d]
+  (let [g (math/gcd n d)]
+    [(/ n g) (/ d g)]))
+
+(defn numer [r]
+  (first r))
+
+(defn denom [r]
+  (second r))
+
+(defn add-rat [r1 r2]
+  (make-rat (+ (* (numer r1) (denom r2))
+               (* (numer r2) (denom r1)))
+            (* (denom r1) (denom r2))))
+
+(defn sub-rat [r1 r2]
+  (make-rat (- (* (numer r1) (denom r2))
+               (* (numer r2) (denom r1)))
+            (* (denom r1) (denom r2))))
+
+(defn mul-rat [r1 r2]
+  (make-rat (* (numer r1) (numer r2))
+            (* (denom r1) (denom r2))))
+
+(defn div-rat [r1 r2]
+  (make-rat (* (numer r1) (denom r2))
+            (* (denom r1) (numer r2))))
+
+(defn equal-rat? [r1 r2]
+  (= (* (numer r1) (denom r2))
+     (* (numer r2) (denom r1))))
+
+;
+; 2.2.1 Representing Sequences
+;
+(defn length [items]
+  (letfn [(length-iter [i acc]
+            (if (empty? i)
+              acc
+              (recur (rest i) (+ 1 acc))))]
+    (length-iter items 0)))
+
+;
+; 2.2.2 Hierarchical Structures
+;
+(defn count-leaves [x]
+  (cond
+    (not (coll? x)) 1
+    (empty? x) 0
+    :else (+ (count-leaves (first x))
+             (count-leaves (rest x)))))
+
+;
+; 2.2.3 Sequences as Conventional Interfaces
+;
+(defn sicp-filter [p seqn]
+  (cond
+    (and (coll? seqn) (empty? seqn)) nil
+    (p (first seqn)) (cons (first seqn) (sicp-filter p (rest seqn)))
+    :else (recur p (rest seqn))))
+
+(defn accumulate [op initial seqn]
+  (println initial seqn)
+  (if (and (coll? seqn) (empty? seqn))
+    initial
+    (op (first seqn)
+        (accumulate op initial (rest seqn)))))
+
+;
 ; Scratch
 ;
+
